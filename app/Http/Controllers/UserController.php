@@ -4,22 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\UserModel;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Hash;  // Perbaiki ini (hapus satu Facades)
 
 class UserController extends Controller
 {
     public function index()
-    {
-        // INSERT data - PAKAI 'nama_user' sesuai tabel Anda
-        $data = [
-            'level_id' => 2,
-            'username' => 'manager_tiga',
-            'nama_user' => 'Manager 3',        // Ganti 'nama' jadi 'nama_user'
-            'password' => Hash::make('12345')
-        ];
+{
+    $data = [
+        'level_id' => 2,
+        'username' => 'manager_dua',
+        'nama_user' => 'Manager 2',          // Kembali ke 'nama'
+        'password' => Hash::make('12345')
+    ];
 
-        UserModel::insert($data);
+    UserModel::create($data);
 
-        return 'Insert data baru berhasil!';
-    }
+    $user = UserModel::all();
+    return view('user', ['data' => $user]);
+}
 }

@@ -12,6 +12,10 @@ class UserModel extends Model
     protected $table = 'm_user';
     protected $primaryKey = 'user_id';
 
-    // TAMBAHKAN INI biarEloquent tahu kolom yang boleh diisi
-    protected $fillable = ['level_id', 'username', 'nama_user', 'password'];
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['level_id', 'username', 'nama_user'];
 }
