@@ -4,21 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\UserModel;
-use Illuminate\Support\Facades\Hash;  // <-- TAMBAHKAN INI
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
     public function index()
 {
-    $user = UserModel::updateOrCreate(
-        ['username' => 'manager_dua'],
-        [
-            'nama' => 'Manager Dua Update',
-            'level_id' => 3,
-            'password' => Hash::make('54321')
-        ]
-    );
+    $user = UserModel::find(1);
 
-    return view('user', ['data' => $user]);
+    $user->nama_user = 'Admin Baru Lagi';
+    $user->save();
+
+    // Cek wasChanged setelah disimpan
+    var_dump($user->wasChanged());         // true
+    var_dump($user->wasChanged('nama'));   // true
+    var_dump($user->wasChanged('username')); // false
+
+    dd('Selesai');
 }
 }
