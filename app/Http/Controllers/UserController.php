@@ -9,10 +9,7 @@ class UserController extends Controller
 {
     public function index()
 {
-    $count = UserModel::count();
-    $max = UserModel::max('level_id');
-    $avg = UserModel::avg('level_id');
-
-    return view('user', compact('count', 'max', 'avg'));
+    $user = UserModel::findOrFail(99);
+    return view('user', ['data' => $user]);
 }
 }
