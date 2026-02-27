@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\LevelModel;  // <-- TAMBAHKAN INI
 
 class UserModel extends Model
 {
@@ -15,7 +16,12 @@ class UserModel extends Model
     protected $fillable = [
         'level_id',
         'username',
-        'nama_user',   // Perhatikan: 'nama_user' (bukan 'name_user')
-        'password'     // Tambahkan password
+        'nama_user',
+        'password'
     ];
+
+    public function level()
+    {
+        return $this->belongsTo(LevelModel::class, 'level_id');
+    }
 }
