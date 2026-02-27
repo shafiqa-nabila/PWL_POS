@@ -10,16 +10,55 @@ class UserController extends Controller
 {
     public function index()
 {
-    $user = UserModel::find(1);
+    $data = UserModel::all();
+    return view('user', ['data' => $data]);
+}
 
-    $user->nama_user = 'Admin Baru Lagi';
+public function tambah()
+{
+    return view('user_tambah');
+}
+
+public function tambah_simpan(Request $request)
+{
+    UserModel::create([
+        'username' => $request->username,
+        'nama_user' => $request->nama,  // Ganti dari 'nama_user' ke 'nama'
+        'password' => Hash::make($request->password),
+        'level_id' => $request->level_id
+    ]);
+
+    return redirect('/user');
+}
+
+public function ubah($id)
+{
+    $user = UserModel::find($id);
+    return view('user_ubah', ['user' => $user]);
+}
+
+public function ubah_simpan(Request $request, $id)
+{
+    $user = UserModel::find($id);
+
+    $user->username = $request->username;
+    $user->nama_user = $request->nama;  // Perhatikan: 'nama_user' diisi dari 'nama'
+    $user->level_id = $request->level_id;
+
+    if ($request->password) {
+        $user->password = Hash::make($request->password);
+    }
+
     $user->save();
 
-    // Cek wasChanged setelah disimpan
-    var_dump($user->wasChanged());         // true
-    var_dump($user->wasChanged('nama'));   // true
-    var_dump($user->wasChanged('username')); // false
+    return redirect('/user');
+}
 
-    dd('Selesai');
+public function hapus($id)
+{
+    $user = UserModel::find($id);
+    $user->delete();
+
+    return redirect('/user');
 }
 }
