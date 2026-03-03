@@ -6,19 +6,19 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
 
-// Halaman utama (Welcome)
+// Halaman utama
 Route::get('/', [WelcomeController::class, 'index']);
 
-// Route untuk User
+// Route untuk User dengan Datatable
 Route::get('/user', [UserController::class, 'index']);
-Route::get('/user/tambah', [UserController::class, 'tambah']);
-Route::post('/user/tambah/simpan', [UserController::class, 'tambah_simpan']);
-Route::get('/user/ubah/{id}', [UserController::class, 'ubah']);
-Route::put('/user/ubah_simpan/{id}', [UserController::class, 'ubah_simpan']);
-Route::get('/user/hapus/{id}', [UserController::class, 'hapus']);
+Route::post('/user/list', [UserController::class, 'list']); // Untuk datatable
+Route::get('/user/create', [UserController::class, 'create']);
+Route::post('/user', [UserController::class, 'store']);
+Route::get('/user/{id}', [UserController::class, 'show']);
+Route::get('/user/{id}/edit', [UserController::class, 'edit']);
+Route::put('/user/{id}', [UserController::class, 'update']);
+Route::delete('/user/{id}', [UserController::class, 'destroy']);
 
-// Route untuk Level
+// Route lain
 Route::get('/level', [LevelController::class, 'index']);
-
-// Route untuk Kategori
 Route::get('/kategori', [KategoriController::class, 'index']);
